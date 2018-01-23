@@ -1,5 +1,6 @@
 <?php
 ini_set('display_errors',1);ini_set('display_startup_errors', 1);error_reporting(E_ALL);
+
 require_once 'definitions.php';
 require_once '../objects/sql.class.php';
 require_once '../objects/QBuilder.php';
@@ -56,5 +57,7 @@ if (!$auth)
     $response['msg']='Unauthorized';
     die;
 }
+
+
 
 //VbNQU449RkJvDDE7Svq82Z1OikhNz6pl
