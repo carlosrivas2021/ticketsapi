@@ -1,30 +1,82 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/config.php';
 
-try {
-  $user = new GT_User();
-  $fields = $user->loadBy($_POST['username'], 'username');
-  $response['status']='error';
-  $response['msg']='Already exists an user with the "' . $_POST['username'] . '" username.';
-  die;
-} catch(Exception $e) { }
+class Insert_Ticket {
 
-try {
-  $fields = $user->loadBy($_POST['primary_email'], 'primary_email');
-  $response['status']='error';
-  $response['msg']='Already exists an user with the "' . $_POST['primary_email'] . '" email.';
-  die;
-} catch(Exception $e) { }
+    public $userID;
+    public $appClient;
+    public $personId;
+    public $reasonId;
+    public $priority;
+    public $title;
+    public $event;
+    public $ticketId = 0;
 
-// unset($user);
-// $user = new GT_App();
-// $user->set('name', $_POST['name']);
-// $user->set('api_key', $_POST['api_key']);
-// $insertId = $user->save();
+    public function insertTicket($data) {
+       // var_dump($data);
+        foreach ($data as $key => $value) {
+            switch ($key) {
+                case 'userid':
+                    $this->userID = $value;
+                    break;
+                case 'appClient':
+                    $this->appClient = $value;
+                    break;
+                case 'personId':
+                    $this->personId = $value;
+                    break;
+                case 'title':
+                    $this->title = $value;
+                    break;
+                case 'event':
+                    $this->event = $value;
+                    break;
+                case 'priority':
+                    $this->priority = $value;
+                    break;
+                case 'statusId':
+                    $this->status = $value;
+                    break;
+                case 'reasonId':
+                    $this->reason = $value;
+                    break;
+                default:
+                    break;
+            }
+        }
 
-$response['status']='success';
-$response['msg']='Complete';
-// $response['data'] = $insertId;
+        $datos = array("person_id" => $this->personId, "status_id" => $this->status, "reason_id" => $this->reason, "priority" => $this->priority, "appClient_id" => $this->appClient, "title" => $this->title);
+        $db = new QBuilder();
+        $db->insert("ticket", $datos)
+                ->execute();
+        $this->ticketId = $db->insertId();
+        if($this->ticketId){
+            $datos = array("ticket_id" => $this->ticketId, "event" => $this->event, "created" => "now()");
+            $b=$db->insert("thread", $datos)
+                ->execute();
+        if ($b) {
+            return "ok";
+        }else{
+            return "error1";
+        }
+        }else{
+            return "error2";
+        }
+        
+        
+    }
+
+}
+
+$data = array("userid" => "1", "personId" => "1", "appClient" => "1", "event" => "Mucha practica...", "priority" => "High", "reasonId"=>"1","statusId"=>"1", "title"=>"problema");
+$a = new Insert_Ticket();
+$b = $a->insertTicket($_REQUEST);
+//echo $b;
+$response['status'] = 'success';
+$response['msg'] = 'Complete';
+$response['data'] = $b;
+//
 die;
