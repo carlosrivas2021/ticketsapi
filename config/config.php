@@ -57,7 +57,6 @@ if (!$auth)
     $response['msg']='Unauthorized';
     die;
 }
-
-
-
+//header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
 //VbNQU449RkJvDDE7Svq82Z1OikhNz6pl

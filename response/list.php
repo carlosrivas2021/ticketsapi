@@ -2,7 +2,7 @@
 require_once '../config/config.php';
  $db = new QBuilder();
   $b = $db->select()
-    ->from('ticket')
+    ->from('response')
     ->execute()
     ->result();
 //var_dump($b);
