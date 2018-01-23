@@ -7,7 +7,7 @@ class DBConfig {
     'default' => [
       'host' => 'localhost',
       'user' => 'root',
-      'pass' => '200306',
+      'pass' => '1234',
       'dbname' => 'tickets'
     ],
     'another_one' => [
