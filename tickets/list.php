@@ -3,8 +3,11 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/config.php';
 
-$c= new Lists();
-$b = $c->listing('GT_User_List');
+ $db = new QBuilder();
+  $b = $db->select()
+    ->from('ticket')
+    ->execute()
+    ->result();
 //var_dump($b);
 $response['status']='success';
 $response['msg']='Complete';

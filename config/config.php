@@ -2,6 +2,7 @@
 ini_set('display_errors',1);ini_set('display_startup_errors', 1);error_reporting(E_ALL);
 require_once 'definitions.php';
 require_once '../objects/sql.class.php';
+require_once '../objects/QBuilder.php';
 require_once '../objects/systemClasses.class.php';
 require_once '../objects/User.class.php';
 require_once '../objects/App.class.php';
@@ -37,7 +38,7 @@ function endpoint_shutdown()
 register_shutdown_function('endpoint_shutdown');
 
 $auth=false;
-$_REQUEST['key']='VbNQU449RkJvDDE7Svq82Z1OikhNz6pl';
+//$_REQUEST['key']='VbNQU449RkJvDDE7Svq82Z1OikhNz6pl';
 if (isset($_REQUEST['key']))
 {
     try 
