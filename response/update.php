@@ -12,7 +12,7 @@ class Insert_Response {
 
         if ($data) {
             $db = new QBuilder();
-            $b = $db->update("response", $data)->where("id='".$_REQUEST["id"]."'")
+            $b = $db->update("response", $data)->where("id='".$data["id"]."'")
                     ->execute();
 
             if ($b) {

@@ -27,7 +27,7 @@ class Insert_Status {
 
 
 
-                $b = $db->update("status", $data)->where("id='".$_REQUEST["id"]."'")
+                $b = $db->update("status", $data)->where("id='".$data["id"]."'")
                         ->execute();
 
                 if ($b) {

@@ -24,7 +24,7 @@ class Insert_Department {
                 return "This name exist";
             } else {
 
-                $b = $db->update("department", $data)->where("id='".$_REQUEST["id"]."'")
+                $b = $db->update("department", $data)->where("id='".$data["id"]."'")
                         ->execute();
 
                 if ($b) {

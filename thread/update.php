@@ -17,7 +17,7 @@ class Insert_Thread {
             $data["created"]=$fecha;
             //$datos = array("ticket_id" => $this->ticketid, "event" => $this->event, "privated"=>$this->privated, "created" => $fecha);
             $db = new QBuilder();
-            $b = $db->update("thread", $data)->where($_REQUEST["id"])
+            $b = $db->update("thread", $data)->where($data["id"])
                     ->execute();
 
             if ($b) {
