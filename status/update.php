@@ -27,7 +27,7 @@ class Insert_Status {
 
 
 
-                $b = $db->insert("status", $data)->where("id='".$_REQUEST["id"]."'")
+                $b = $db->update("status", $data)->where("id='".$_REQUEST["id"]."'")
                         ->execute();
 
                 if ($b) {
@@ -43,7 +43,7 @@ class Insert_Status {
 
 }
 
-$data = array("name" => "Cerrado");
+$data = $_REQUEST;
 $a = new Insert_Status();
 $b = $a->insertStatus($data);
 //echo $b;
