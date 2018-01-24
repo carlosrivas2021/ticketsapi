@@ -2,9 +2,9 @@
 
 include_once '../config/config.php';
 
-class Insert_Response {
+class update_Response {
 
-    public function insertResponse($data) {
+    public function updateResponse($data) {
         //var_dump($data);
         if (isset($data["key"])) {
             unset($data["key"]);
@@ -28,8 +28,8 @@ class Insert_Response {
 }
 
 //$data = array("reason_id" => 1,"content"=>"This is a great history...!!!");
-$a = new Insert_Response();
-$b = $a->insertResponse($_REQUEST);
+$a = new update_Response();
+$b = $a->updateResponse($_REQUEST);
 //echo $b;
 $response['status'] = 'success';
 $response['msg'] = 'Complete';

@@ -2,9 +2,9 @@
 
 include_once '../config/config.php';
 
-class Insert_Department {
+class update_Department {
 
-    public function insertDepartment($data) {
+    public function updateDepartment($data) {
         //var_dump($data);
         if (isset($data["key"])) {
             unset($data["key"]);
@@ -41,8 +41,8 @@ class Insert_Department {
 }
 
 //$data = array("name" => "System", "description" => "Responsible for solving system failures");
-$a = new Insert_Department();
-$b = $a->insertDepartment($_REQUEST);
+$a = new update_Department();
+$b = $a->updateDepartment($_REQUEST);
 //echo $b;
 $response['status'] = 'success';
 $response['msg'] = 'Complete';

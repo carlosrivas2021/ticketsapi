@@ -2,11 +2,11 @@
 
 include_once '../config/config.php';
 
-class Insert_Thread {
+class update_Thread {
 
     public $ticketId;
 
-    public function insertThread($data) {
+    public function updateThread($data) {
         //var_dump($data);
         if (isset($data["key"])) {
             unset($data["key"]);
@@ -38,8 +38,8 @@ class Insert_Thread {
 }
 
 //$data = array("ticket_id" => "19", "event" => "Try again", "privated" => "1");
-$a = new Insert_Thread();
-$b = $a->insertThread($_REQUEST);
+$a = new update_Thread();
+$b = $a->updateThread($_REQUEST);
 //echo $b;
 $response['status'] = 'success';
 $response['msg'] = 'Complete';

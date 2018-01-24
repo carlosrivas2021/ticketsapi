@@ -2,12 +2,12 @@
 
 include_once '../config/config.php';
 
-class Insert_Member_Department {
+class update_Member_Department {
 
     public $department_id;
     public $user_id;
 
-    public function insertMemberDepartment($data) {
+    public function updateMemberDepartment($data) {
         //var_dump($data);
         if (isset($data["key"])) {
             unset($data["key"]);
@@ -45,8 +45,8 @@ class Insert_Member_Department {
 }
 
 //$data = array("department_id" => 1, "user_id" => 3);
-$a = new Insert_Member_Department();
-$b = $a->insertMemberDepartment($_REQUEST);
+$a = new update_Member_Department();
+$b = $a->updateMemberDepartment($_REQUEST);
 //echo $b;
 $response['status'] = 'success';
 $response['msg'] = 'Complete';

@@ -2,11 +2,11 @@
 
 include_once '../config/config.php';
 
-class Insert_Status {
+class update_Status {
 
     public $name;
 
-    public function insertStatus($data) {
+    public function updateStatus($data) {
         //var_dump($data);
         if (isset($data["key"])) {
             unset($data["key"]);
@@ -44,8 +44,8 @@ class Insert_Status {
 }
 
 $data = $_REQUEST;
-$a = new Insert_Status();
-$b = $a->insertStatus($data);
+$a = new update_Status();
+$b = $a->updateStatus($data);
 //echo $b;
 $response['status'] = 'success';
 $response['msg'] = 'Complete';
