@@ -47,9 +47,9 @@ class Insert_Thread {
 
 }
 
-$data = array("ticketid" => "19", "event" => "Mucha practica...", "privated" => "1");
+//$data = array("ticketid" => "19", "event" => "Mucha practica...", "privated" => "1");
 $a = new Insert_Thread();
-$b = $a->insertThread($data);
+$b = $a->insertThread($_REQUEST);
 //echo $b;
 $response['status'] = 'success';
 $response['msg'] = 'Complete';
