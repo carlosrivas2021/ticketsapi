@@ -19,7 +19,8 @@ class Insert_Status {
             $c = $db->select()
                     ->from('status')
                     ->where("name='$this->name'")
-                    ->getRawQuery();
+                    ->execute()
+                    ->result();
             
             if ($c) {
                 return "This name exist";
@@ -43,9 +44,9 @@ class Insert_Status {
 
 }
 
-$data = array("name" => "Cerrado");
+//$data = array("name" => "Cerrado");
 $a = new Insert_Status();
-$b = $a->insertStatus($data);
+$b = $a->insertStatus($_REQUEST);
 //echo $b;
 $response['status'] = 'success';
 $response['msg'] = 'Complete';

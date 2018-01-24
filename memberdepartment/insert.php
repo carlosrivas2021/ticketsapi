@@ -2,34 +2,35 @@
 
 include_once '../config/config.php';
 
-class Insert_Department {
+class Insert_Member_Department {
 
-    public $name;
-    
-    public function insertDepartment($data) {
+    public $department_id;
+    public $user_id;
+
+    public function insertMemberDepartment($data) {
         //var_dump($data);
         if (isset($data["key"])) {
             unset($data["key"]);
         }
 
         if ($data) {
-            $fecha = date("Y-m-d");
-            $data["created"] = $fecha;
+            $this->department_id = $data["department_id"];
+            $this->user_id = $data["user_id"];
             $db = new QBuilder();
-            $this->name = $data["name"];
             $c = $db->select()
-                    ->from('department')
-                    ->where("name='$this->name'")
+                    ->from('member_department')
+                    ->where("department_id=$this->department_id")
+                    ->where("user_id=$this->user_id")
                     ->execute()
                     ->result();
-            //var_dump($c);
+
             if ($c) {
-                return "This name exist";
+                return "This user exist for this department";
             } else {
 
-                $b = $db->insert("department", $data)
+                $b = $db->insert("member_department", $data)
                         ->execute();
-
+                //echo $b;
                 if ($b) {
                     return "ok";
                 } else {
@@ -43,9 +44,9 @@ class Insert_Department {
 
 }
 
-//$data = array("name" => "System3", "description" => "Responsible for solving system failures");
-$a = new Insert_Department();
-$b = $a->insertDepartment($_REQUEST);
+//$data = array("department_id" => 1, "user_id" => 3);
+$a = new Insert_Member_Department();
+$b = $a->insertMemberDepartment($_REQUEST);
 //echo $b;
 $response['status'] = 'success';
 $response['msg'] = 'Complete';
