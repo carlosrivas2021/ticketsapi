@@ -14,7 +14,7 @@ class Insert_Ticket {
     public $ticketId = 0;
 
     public function insertTicket($data) {
-       // var_dump($data);
+         var_dump($data);
         foreach ($data as $key => $value) {
             switch ($key) {
                 case 'userid':
@@ -41,8 +41,7 @@ class Insert_Ticket {
                 case 'reasonId':
                     $this->reason = $value;
                     break;
-                default:
-                    break;
+              
             }
         }
 
@@ -51,25 +50,23 @@ class Insert_Ticket {
         $db->insert("ticket", $datos)
                 ->execute();
         $this->ticketId = $db->insertId();
-        if($this->ticketId){
+        if ($this->ticketId) {
             $datos = array("ticket_id" => $this->ticketId, "event" => $this->event, "created" => "now()");
-            $b=$db->insert("thread", $datos)
-                ->execute();
-        if ($b) {
-            return "ok";
-        }else{
-            return "error1";
+            $b = $db->insert("thread", $datos)
+                    ->execute();
+            if ($b) {
+                return "ok";
+            } else {
+                return "error";
+            }
+        } else {
+            return "error";
         }
-        }else{
-            return "error2";
-        }
-        
-        
     }
 
 }
 
-$data = array("userid" => "1", "personId" => "1", "appClient" => "1", "event" => "Mucha practica...", "priority" => "High", "reasonId"=>"1","statusId"=>"1", "title"=>"problema");
+$data = array("userid" => "1", "personId" => "1", "appClient" => "1", "event" => "Mucha practica...", "priority" => "High", "reasonId" => "1", "statusId" => "1", "title" => "problema");
 $a = new Insert_Ticket();
 $b = $a->insertTicket($_REQUEST);
 //echo $b;
