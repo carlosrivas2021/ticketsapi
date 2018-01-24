@@ -14,7 +14,7 @@ class Insert_Ticket {
     public $ticketId = 0;
 
     public function insertTicket($data) {
-         var_dump($data);
+        //var_dump($data);
         foreach ($data as $key => $value) {
             switch ($key) {
                 case 'userid':
@@ -41,17 +41,17 @@ class Insert_Ticket {
                 case 'reasonId':
                     $this->reason = $value;
                     break;
-              
             }
         }
-
-        $datos = array("person_id" => $this->personId, "status_id" => $this->status, "reason_id" => $this->reason, "priority" => $this->priority, "appClient_id" => $this->appClient, "title" => $this->title);
+        $fecha = date("Y-m-d");
+        $datos = array("person_id" => $this->personId, "status_id" => $this->status, "reason_id" => $this->reason, "priority" => $this->priority, "appClient_id" => $this->appClient, "title" => $this->title, "created"=> $fecha);
         $db = new QBuilder();
         $db->insert("ticket", $datos)
                 ->execute();
         $this->ticketId = $db->insertId();
         if ($this->ticketId) {
-            $datos = array("ticket_id" => $this->ticketId, "event" => $this->event, "created" => "now()");
+
+            $datos = array("ticket_id" => $this->ticketId, "event" => $this->event, "created" => $fecha);
             $b = $db->insert("thread", $datos)
                     ->execute();
             if ($b) {

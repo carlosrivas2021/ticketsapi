@@ -1,30 +1,54 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
+
 include_once '../config/config.php';
 
-try {
-  $user = new GT_User();
-  $fields = $user->loadBy($_POST['username'], 'username');
-  $response['status']='error';
-  $response['msg']='Already exists an user with the "' . $_POST['username'] . '" username.';
-  die;
-} catch(Exception $e) { }
+class Insert_Thread {
 
-try {
-  $fields = $user->loadBy($_POST['primary_email'], 'primary_email');
-  $response['status']='error';
-  $response['msg']='Already exists an user with the "' . $_POST['primary_email'] . '" email.';
-  die;
-} catch(Exception $e) { }
+    public $privated;
+    public $event;
+    public $ticketId = 0;
 
-// unset($user);
-// $user = new GT_App();
-// $user->set('name', $_POST['name']);
-// $user->set('api_key', $_POST['api_key']);
-// $insertId = $user->save();
+    public function insertThread($data) {
+        //var_dump($data);
+        foreach ($data as $key => $value) {
+            switch ($key) {
+                case 'privated':
+                    $this->privated = $value;
+                    break;
+                case 'ticketid':
+                    $this->ticketid = $value;
+                    break;
+                case 'event':
+                    $this->event = $value;
+                    break;
+            }
+        }
 
-$response['status']='success';
-$response['msg']='Complete';
-// $response['data'] = $insertId;
+        if ($this->ticketid) {
+            $fecha= date("Y-m-d");
+            $datos = array("ticket_id" => $this->ticketid, "event" => $this->event, "created" => $fecha);
+            $db = new QBuilder();
+            $b = $db->insert("thread", $datos)
+                    ->execute();
+            //echo $b;
+            if ($b) {
+                return "ok";
+            } else {
+                return "error1";
+            }
+        } else {
+            return "error2";
+        }
+    }
+
+}
+
+$data = array("ticketid" => "19", "event" => "Mucha practica...", "privated" => "1");
+$a = new Insert_Thread();
+$b = $a->insertThread($data);
+//echo $b;
+$response['status'] = 'success';
+$response['msg'] = 'Complete';
+$response['data'] = $b;
+//
 die;
