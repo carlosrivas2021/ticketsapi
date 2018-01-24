@@ -1,30 +1,54 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
+
 include_once '../config/config.php';
 
-try {
-  $user = new GT_User();
-  $fields = $user->loadBy($_POST['username'], 'username');
-  $response['status']='error';
-  $response['msg']='Already exists an user with the "' . $_POST['username'] . '" username.';
-  die;
-} catch(Exception $e) { }
+class Insert_Status {
 
-try {
-  $fields = $user->loadBy($_POST['primary_email'], 'primary_email');
-  $response['status']='error';
-  $response['msg']='Already exists an user with the "' . $_POST['primary_email'] . '" email.';
-  die;
-} catch(Exception $e) { }
+    public $name;
 
-// unset($user);
-// $user = new GT_App();
-// $user->set('name', $_POST['name']);
-// $user->set('api_key', $_POST['api_key']);
-// $insertId = $user->save();
+    public function insertStatus($data) {
+        //var_dump($data);
+        if (isset($data["key"])) {
+            unset($data["key"]);
+        }
 
-$response['status']='success';
-$response['msg']='Complete';
-// $response['data'] = $insertId;
+        if ($data) {
+
+            $db = new QBuilder();
+            $this->name = $data["name"];
+            $c = $db->select()
+                    ->from('status')
+                    ->where("name='$this->name'")
+                    ->getRawQuery();
+            
+            if ($c) {
+                return "This name exist";
+            } else {
+
+
+
+                $b = $db->insert("status", $data)
+                        ->execute();
+
+                if ($b) {
+                    return "ok";
+                } else {
+                    return "error";
+                }
+            }
+        } else {
+            return "error";
+        }
+    }
+
+}
+
+$data = array("name" => "Cerrado");
+$a = new Insert_Status();
+$b = $a->insertStatus($data);
+//echo $b;
+$response['status'] = 'success';
+$response['msg'] = 'Complete';
+$response['data'] = $b;
+//
 die;

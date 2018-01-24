@@ -4,50 +4,40 @@ include_once '../config/config.php';
 
 class Insert_Thread {
 
-    public $privated;
-    public $event;
-    public $ticketId = 0;
+    public $ticketId;
 
     public function insertThread($data) {
         //var_dump($data);
-        foreach ($data as $key => $value) {
-            switch ($key) {
-                case 'privated':
-                    $this->privated = $value;
-                    break;
-                case 'ticketid':
-                    $this->ticketid = $value;
-                    break;
-                case 'event':
-                    $this->event = $value;
-                    break;
-            }
+        if (isset($data["key"])) {
+            unset($data["key"]);
         }
 
-        if ($this->ticketid) {
+        if ($data) {
             $fecha = date("Y-m-d");
-            $datos = array("ticket_id" => $this->ticketid, "event" => $this->event, "created" => $fecha);
+            $data["created"]=$fecha;
+            //$datos = array("ticket_id" => $this->ticketid, "event" => $this->event, "privated"=>$this->privated, "created" => $fecha);
             $db = new QBuilder();
-            $b = $db->insert("thread", $datos)
+            $b = $db->insert("thread", $data)
                     ->execute();
 
             if ($b) {
+                $this->ticketId=$data['ticket_id'];
                 $db->update("ticket", array("updated"=>$fecha))
-                   ->where("id=$this->ticketid")
+                   ->where("id=$this->ticketId")
                    ->execute();
                 
                 return "ok";
             } else {
-                return "error1";
+                return "error";
             }
         } else {
-            return "error2";
+            return "error";
         }
     }
 
 }
 
-//$data = array("ticketid" => "19", "event" => "Mucha practica...", "privated" => "1");
+//$data = array("ticket_id" => "19", "event" => "Try again", "privated" => "1");
 $a = new Insert_Thread();
 $b = $a->insertThread($_REQUEST);
 //echo $b;
