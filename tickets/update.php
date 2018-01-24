@@ -15,10 +15,8 @@ class Update_Ticket {
         if ($data) {
             $fecha = date("Y-m-d");
             $data["updated"] = $fecha;
-            $this->ticketId = $data["id"];
-            unset($data["id"]);
             $db = new QBuilder();
-            $b = $db->update("ticket", $data)->where("id='" . $this->ticketId . "'")
+            $b = $db->update("ticket", $data)->where("id='" . $data["id"] . "'")
                     ->execute();
             
             if ($b) {
