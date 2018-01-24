@@ -25,13 +25,17 @@ class Insert_Thread {
         }
 
         if ($this->ticketid) {
-            $fecha= date("Y-m-d");
+            $fecha = date("Y-m-d");
             $datos = array("ticket_id" => $this->ticketid, "event" => $this->event, "created" => $fecha);
             $db = new QBuilder();
             $b = $db->insert("thread", $datos)
                     ->execute();
-            //echo $b;
+
             if ($b) {
+                $db->update("ticket", array("updated"=>$fecha))
+                   ->where("id=$this->ticketid")
+                   ->execute();
+                
                 return "ok";
             } else {
                 return "error1";
