@@ -69,7 +69,7 @@ CREATE TABLE `reason` (
   `id` int(11) NOT NULL,
   `department_id` int(11) NOT NULL,
   `title` text NOT NULL,
-  `description` int(11) NOT NULL
+  `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -111,7 +111,7 @@ INSERT INTO `status` (`id`, `name`) VALUES
 CREATE TABLE `thread` (
   `id` int(11) NOT NULL,
   `ticket_id` int(11) NOT NULL,
-  `event` int(11) NOT NULL,
+  `event` text NOT NULL,
   `privated` tinyint(1) NOT NULL,
   `created` date NOT NULL,
   `updated` date NOT NULL
