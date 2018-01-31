@@ -1,13 +1,36 @@
 <?php
+
 require_once '../config/config.php';
- $db = new QBuilder();
-  $b = $db->select()
-    ->from('ticket')
-    ->execute()
-    ->result();
+
+class List_Ticket {
+
+    public function listTicket($data) {
+        if (isset($data["person_id"])) {
+            $db = new QBuilder();
+            $b = $db->select()
+                    ->from('ticket')
+                    ->where("person_id='" . $data["person_id"] . "'")
+                    ->execute()
+                    ->result();
+            return $b;
+        } else {
+            $db = new QBuilder();
+            $b = $db->select()
+                    ->from('ticket')
+                    ->execute()
+                    ->result();
+            return $b;
+        }
+    }
+
+}
+
 //var_dump($b);
-$response['status']='success';
-$response['msg']='Complete';
+$a = new List_Ticket();
+$b = $a->listTicket($_REQUEST);
+//echo $b;
+$response['status'] = 'success';
+$response['msg'] = 'Complete';
 $response['data'] = $b;
 die;
 

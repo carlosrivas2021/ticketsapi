@@ -66,7 +66,7 @@ class Insert_Ticket {
 
 }
 
-$data = array("userid" => "1", "personId" => "1", "appClient" => "1", "event" => "Mucha practica...", "priority" => "High", "reasonId" => "1", "statusId" => "1", "title" => "problema");
+//$data = array("userid" => "1", "personId" => "1", "appClient" => "1", "event" => "Mucha practica...", "priority" => "High", "reasonId" => "1", "statusId" => "1", "title" => "problema");
 $a = new Insert_Ticket();
 $b = $a->insertTicket($_REQUEST);
 //echo $b;
