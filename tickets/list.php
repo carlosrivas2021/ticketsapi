@@ -13,14 +13,26 @@ class List_Ticket {
                     ->execute()
                     ->result();
             return $b;
-        } else {
+        } 
+        
+        if (isset($data["id"])) {
+            $db = new QBuilder();
+            $b = $db->select()
+                    ->from('ticket')
+                    ->where("id='" . $data["id"] . "'")
+                    ->execute()
+                    ->result();
+            return $b;
+        }
+        
+        
             $db = new QBuilder();
             $b = $db->select()
                     ->from('ticket')
                     ->execute()
                     ->result();
             return $b;
-        }
+        
     }
 
 }

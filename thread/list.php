@@ -1,29 +1,35 @@
 <?php
 require_once '../config/config.php';
- $db = new QBuilder();
-  $b = $db->select()
-    ->from('thread')
-    ->execute()
-    ->result();
+
+
+class List_Thread {
+
+    public function listThread($data) {
+        if (isset($data["ticket_id"])) {
+            $db = new QBuilder();
+            $b = $db->select()
+                    ->from('thread')
+                    ->where("ticket_id='" . $data["ticket_id"] . "'")
+                    ->execute()
+                    ->result();
+            return $b;
+        } else {
+            $db = new QBuilder();
+            $b = $db->select()
+                    ->from('thread')
+                    ->execute()
+                    ->result();
+            return $b;
+        }
+    }
+
+}
+
 //var_dump($b);
-$response['status']='success';
-$response['msg']='Complete';
+$a = new List_Thread();
+$b = $a->listThread($_REQUEST);
+//echo $b;
+$response['status'] = 'success';
+$response['msg'] = 'Complete';
 $response['data'] = $b;
 die;
-
-//$usersList=array();
-//$users = (new GT_User_List())->getList();
-//
-//foreach($users as $user)
-//{
-//    $usersList[]=array
-//    (
-//        'ID'=>$user->get('ID'),
-//        'first_name'=>$user->get('first_name'),
-//        'last_name'=>$user->get('last_name')
-//    );
-//}
-//var_dump($usersList);
-//$response['status']='success';
-//$response['msg']='Complete';
-//$response['data']=$usersList;

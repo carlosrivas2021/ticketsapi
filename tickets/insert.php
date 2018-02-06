@@ -20,10 +20,10 @@ class Insert_Ticket {
                 case 'userid':
                     $this->userID = $value;
                     break;
-                case 'appClient':
+                case 'appClient_id':
                     $this->appClient = $value;
                     break;
-                case 'personId':
+                case 'person_id':
                     $this->personId = $value;
                     break;
                 case 'title':
@@ -35,10 +35,10 @@ class Insert_Ticket {
                 case 'priority':
                     $this->priority = $value;
                     break;
-                case 'statusId':
+                case 'status_id':
                     $this->status = $value;
                     break;
-                case 'reasonId':
+                case 'reason_id':
                     $this->reason = $value;
                     break;
             }
@@ -57,19 +57,19 @@ class Insert_Ticket {
             if ($b) {
                 return "ok";
             } else {
-                return "error";
+                return "error1";
             }
         } else {
-            return "error";
+            return "error2";
         }
     }
 
 }
 
-//$data = array("userid" => "1", "personId" => "1", "appClient" => "1", "event" => "Mucha practica...", "priority" => "High", "reasonId" => "1", "statusId" => "1", "title" => "problema");
+//$data = array("person_id" => "1", "appClient_id" => "1", "event" => "Mucha practica...", "priority" => "High", "reason_id" => "1", "status_id" => "1", "title" => "problema");
 $a = new Insert_Ticket();
 $b = $a->insertTicket($_REQUEST);
-//echo $b;
+
 $response['status'] = 'success';
 $response['msg'] = 'Complete';
 $response['data'] = $b;
